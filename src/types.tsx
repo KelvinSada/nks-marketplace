@@ -1,3 +1,11 @@
+// User signup detail type
+export type userDetail = {
+  firstname:string,
+  lastname:string,
+  email:string,
+  password:string
+}
+
 export type apiDataType = {
   "id": number,
   "title": string,
@@ -23,14 +31,10 @@ export type AppContextType={
 }
 
 export type AuthContextType = {
-  user: User | null,
+  user: userDetail | null,
   login: (email: string, password: string) => Promise<void>,
   logout:() => void,
   loading:boolean,
-}
-
-export type User = {
-  id:string,
-  email:string,
-  token:string
+  signup: (data: userDetail) => Promise<void>,
+  authError:boolean,
 }

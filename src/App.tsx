@@ -1,8 +1,9 @@
 import './App.css'
 import { useState, useEffect } from 'react'
 import type { apiDataType } from './types'
-import ComponentMenu from './components/ComponentMenu'
+// import ComponentMenu from './components/ComponentMenu'
 import { AppContext } from './Context'
+import SignUp from './pages/SignUp'
 
 function  App () {
   // const [data,setData] = useState<apiDataType>({   //A shopping Item
@@ -38,7 +39,7 @@ function  App () {
   return (
      <AppContext.Provider value={{SavedItemsArray:{itemsArray,setItemsArray},
      SelectedCategory:{selectedCategory,setSelectedCategory}}}>
-      <section>
+      {/* <section>
         <ComponentMenu data={itemsArray}/>
         <div className=' flex flex-col gap-10'>
           {
@@ -56,7 +57,8 @@ function  App () {
             }):<p>Nothing to show here</p>
           }
         </div>
-      </section>
+      </section> */}
+      <SignUp/>
     </AppContext.Provider>
   )
 }
