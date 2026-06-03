@@ -1,6 +1,5 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useAuth } from '../components/hooks'
-import type { AuthContextType } from '../types'
 
 type userFormDetail = {
   // username:string,

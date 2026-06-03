@@ -8,7 +8,6 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider=({children}:AuthProviderProps)=>{
-  console.log(children)
   const [user,setUser] = useState<User|null>(null);
   const [loading,setLoading] = useState<boolean>(true)
 
