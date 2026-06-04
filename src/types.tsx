@@ -6,6 +6,11 @@ export type userDetail = {
   password:string
 }
 
+export type loginDetail = {
+  email:string,
+  password:string
+}
+
 export type apiDataType = {
   "id": number,
   "title": string,
@@ -32,9 +37,14 @@ export type AppContextType={
 
 export type AuthContextType = {
   user: userDetail | null,
-  login: (email: string, password: string) => Promise<void>,
+  login:  (data: loginDetail) => Promise<void>,
   logout:() => void,
   loading:boolean,
   signup: (data: userDetail) => Promise<void>,
-  authError:boolean,
+  authError: authErrorType
 }
+
+export type authErrorType = {
+    error:boolean,
+    message:string
+  }

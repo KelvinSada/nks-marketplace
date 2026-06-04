@@ -1,23 +1,10 @@
 import './App.css'
 import { useState, useEffect } from 'react'
 import type { apiDataType } from './types'
-// import ComponentMenu from './components/ComponentMenu'
+import ComponentMenu from './components/ComponentMenu'
 import { AppContext } from './Context'
-import SignUp from './pages/SignUp'
 
 function  App () {
-  // const [data,setData] = useState<apiDataType>({   //A shopping Item
-  //   "id": 0,
-  //   "title": "",
-  //   "price": 0,
-  //   "description": "",
-  //   "category": "",
-  //   "image":"",
-  //   "rating": {
-  //   "rate": 0,
-  //   "count": 0,
-  //   }
-  // })
   const [itemsArray,setItemsArray] = useState<apiDataType[]>([])  // An array full of shopping items to be displayed
   const [selectedCategory,setSelectedCategory] = useState<string>("men's clothing") //store the categorySelected from the menu
 
@@ -39,7 +26,7 @@ function  App () {
   return (
      <AppContext.Provider value={{SavedItemsArray:{itemsArray,setItemsArray},
      SelectedCategory:{selectedCategory,setSelectedCategory}}}>
-      {/* <section>
+      <section>
         <ComponentMenu data={itemsArray}/>
         <div className=' flex flex-col gap-10'>
           {
@@ -57,23 +44,9 @@ function  App () {
             }):<p>Nothing to show here</p>
           }
         </div>
-      </section> */}
-      <SignUp/>
+      </section>
     </AppContext.Provider>
   )
 }
 
 export default App
-
-
-// itemsArray?itemsArray.map((item:apiDataType)=>{
-//               item.category===selectedCategory?
-//               return(
-//                 <div key={item.id} className='bg-pink-200 p-6 border-8 flex flex-col gap-2'>
-//                   <img src={item.image} alt={item.description}/>
-//                   <p className='text-2xl font-bold '>{item.title}</p>
-//                   <p className='text-red-500 text-2xl font-bold'>Price {item.price}</p>
-//                   <p className='font-bold'>ratings: {item.rating.rate} count:{item.rating.count}</p>
-//                 </div>
-//               // )
-//             }):<p>Nothing to show here</p>

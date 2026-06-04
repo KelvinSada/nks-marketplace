@@ -18,7 +18,7 @@ const ComponentMenu = ({data:items}:{data:apiDataType[]}) => {
     function handleCategoryClick(item:string){
       setSelectedCategory(item)
     }
-    console.log(selectedCategory)
+    
   return (
     <>
     <ul className="flex p-3 align-middle text-center justify-center border-4 space-x-6 border-b border-gray-200">

@@ -1,5 +1,5 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { useAuth } from '../components/hooks'
+import { useAuth } from '../hooks'
 import type { userDetail } from '../types';
 
 
@@ -20,7 +20,7 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-emerald-50 via-teal-50 to-cyan-50 flex tra items-center justify-center p-6">
-      {authError === true?<div className="text-red-500 absolute top-10 right-10">Error occured, try again later</div>:null}
+      {authError.error == true?<div className="text-red-500 absolute top-10 right-10">${authError.message}</div>:null}
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden">
         {/* Decorative top bar */}
         <div className="h-2 bg-linear-to-r from-emerald-400 to-teal-500"></div>
@@ -122,7 +122,7 @@ const SignUp = () => {
             <p className="text-center text-gray-600 text-sm">
               Already have an account?{' '}
               <a href="#" className="text-emerald-600 hover:text-emerald-700 font-semibold">
-                Sign in
+                Login
               </a>
             </p>
           </form>
