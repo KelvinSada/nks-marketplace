@@ -1,6 +1,7 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useAuth } from '../hooks'
 import type { userDetail } from '../types';
+import { Link } from 'react-router-dom';
 
 
 const SignUp = () => {
@@ -121,9 +122,9 @@ const SignUp = () => {
             {/* Sign in link */}
             <p className="text-center text-gray-600 text-sm">
               Already have an account?{' '}
-              <a href="#" className="text-emerald-600 hover:text-emerald-700 font-semibold">
+              <Link to={"/login"} className="text-emerald-600 hover:text-emerald-700 font-semibold">
                 Login
-              </a>
+              </Link>
             </p>
           </form>
         </div>

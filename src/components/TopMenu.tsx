@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 
 const TopMenu = () => {
   return (
@@ -8,24 +9,24 @@ const TopMenu = () => {
           {/* Brand/Logo */}
           <div className="shrink-0">
             <a href="#" className="text-2xl font-bold text-gray-900 hover:text-indigo-600 transition-colors">
-              Brand<span className="text-indigo-600">Name</span>
+              NKS<span className="text-indigo-600">hub</span>
             </a>
           </div>
       
           {/* Desktop Nav */}
           <nav className="hidden md:flex space-x-8">
-            <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
+            <Link to={"/"} className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
               Home
-            </a>
+            </Link>
             <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
               About
             </a>
-            <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
-              Services
-            </a>
-            <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
-              Contact
-            </a>
+            <Link to={"/signup"} className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
+              SignUp
+            </Link>
+            <Link to={"/login"} className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
+              Login
+            </Link>
           </nav>
       
           {/* CTA Button */}
@@ -45,19 +46,19 @@ const TopMenu = () => {
           </div> */}
 
           {/* Mobile list of Items */}
-          <nav className="flex ">
+          <nav className="flex md:hidden">
             <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
               Home
             </a>
             <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
               About
             </a>
-            <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
+            <Link to={"/signup"} className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
               SignUp
-            </a>
-            <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
+            </Link>
+            <Link to={"/login"} className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
               Login
-            </a>
+            </Link>
           </nav>
         </div>
       </div>
