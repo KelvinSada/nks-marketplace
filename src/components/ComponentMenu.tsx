@@ -3,7 +3,7 @@ import type { apiDataType } from "../types"
 import { AppContext } from "../Context"
 
 const ComponentMenu = ({data:items}:{data:apiDataType[]}) => {
-  const {SelectedCategory:{selectedCategory,setSelectedCategory}} =useContext(AppContext)
+  const {SelectedCategory:{selectedCategory,setSelectedCategory}} = useContext(AppContext)
   
     const categoryArray:string[] = []
 
