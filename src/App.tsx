@@ -2,7 +2,7 @@ import './App.css'
 import { useState } from 'react'
 import type { apiDataType } from './types'
 import { AppContext } from './Context'
-import DisplaySection from './components/displaySection'
+import DisplaySection from './components/DisplaySection'
 import TopMenu from './components/TopMenu'
 
 function  App () {

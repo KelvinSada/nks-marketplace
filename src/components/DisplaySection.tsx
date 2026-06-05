@@ -3,8 +3,6 @@ import ComponentMenu from './ComponentMenu'
 import type { apiDataType } from '../types'
 import { AppContext } from '../Context'
 
-
-
 const DisplaySection = () => {
 const {SavedItemsArray:{itemsArray,setItemsArray},SelectedCategory:{selectedCategory}} = useContext(AppContext)
 
