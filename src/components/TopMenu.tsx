@@ -22,7 +22,7 @@ const TopMenu = () => {
               About
             </a>
             <Link to={"/signup"} className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
-              SignUp
+              Sign Up
             </Link>
             <Link to={"/login"} className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
               Login
@@ -54,7 +54,7 @@ const TopMenu = () => {
               About
             </a>
             <Link to={"/signup"} className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
-              SignUp
+              Sign Up
             </Link>
             <Link to={"/login"} className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium transition-colors">
               Login

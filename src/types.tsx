@@ -11,6 +11,17 @@ export type loginDetail = {
   password:string
 }
 
+// Storing User Data into a main global array
+export type userStorageDetail = {
+  id:number | undefined,
+  uniqueId:string | undefined,
+  firstname:string,
+  lastname:string,
+  email:string,
+  password:string
+}
+
+
 export type apiDataType = {
   "id": number,
   "title": string,
@@ -32,6 +43,10 @@ export type AppContextType={
   SelectedCategory:{
      selectedCategory:string,
      setSelectedCategory:React.Dispatch<React.SetStateAction<string>>
+  },
+  GlobalStorage:{
+    userStorage:userStorageDetail[],
+    setUserStorage:React.Dispatch<React.SetStateAction<userStorageDetail[]>>,
   }
 }
 

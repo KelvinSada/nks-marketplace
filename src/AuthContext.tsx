@@ -1,5 +1,6 @@
 import { createContext,useState,useEffect, type ReactNode } from "react";
 import type { AuthContextType, authErrorType, loginDetail, userDetail } from "./types";
+import { addingUserToGlobal } from "./function/function";
 
 export const AuthContext = createContext<AuthContextType|undefined>(undefined)
 
@@ -60,14 +61,16 @@ export const AuthProvider=({children}:AuthProviderProps)=>{
 
   // Signup action
   const signup = async (data:userDetail) =>{
+
     if (data.email === user?.email){
       setAuthError({
         error:true,
         message:"This email already exists"
       })
     } else if (data.email !== user?.email){
+      addingUserToGlobal(data)
       try{
-      localStorage.setItem("user",JSON.stringify(data))
+      // localStorage.setItem("user",JSON.stringify(data))
       setAuthError({
         error:false,
         message:"Signup successful"
@@ -80,6 +83,7 @@ export const AuthProvider=({children}:AuthProviderProps)=>{
     }
     }
   }
+
 
 
   const value = {

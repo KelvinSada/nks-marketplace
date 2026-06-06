@@ -10,5 +10,9 @@ export const AppContext = createContext<AppContextType>({
   SelectedCategory:{
     selectedCategory:"men's clothing",
     setSelectedCategory:()=>{}
+  },
+  GlobalStorage:{
+    userStorage:[],
+    setUserStorage:()=>{}
   }
 })
