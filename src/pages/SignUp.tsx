@@ -1,10 +1,13 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { useAuth } from '../hooks'
-import type { userDetail } from '../types';
+import { useAuth } from '../hooks/hooks'
+import type { userDetail } from '../types/types';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AppContext } from '../context/Context';
 
 
 const SignUp = () => {
+  const {GlobalStorage:{userStorage} } = useContext(AppContext)
   const { register,handleSubmit,formState:{errors}} = useForm<userDetail>();
   const { signup, authError } = useAuth()
   
@@ -12,7 +15,7 @@ const SignUp = () => {
   const  onSubmit:SubmitHandler<userDetail> = async (data:userDetail)=>{
     try{
       await signup(data)
-    }catch{
+    }catch(err){
       throw new Error("An error occured")  
     }
     
@@ -99,7 +102,7 @@ const SignUp = () => {
             </div>
 
             {/* Terms & Conditions */}
-            <div className="flex items-start gap-2">
+            {/* <div className="flex items-start gap-2">
               <input
                 type="checkbox"
                 id="terms"
@@ -109,7 +112,7 @@ const SignUp = () => {
               <label htmlFor="terms" className="text-sm text-gray-600">
                 I agree to the <a href="#" className="text-emerald-600 hover:text-emerald-700 font-medium">Terms of Service</a> and <a href="#" className="text-emerald-600 hover:text-emerald-700 font-medium">Privacy Policy</a>
               </label>
-            </div>
+            </div> */}
 
             {/* Submit Button */}
             <button
@@ -129,6 +132,18 @@ const SignUp = () => {
           </form>
         </div>
       </div>
+          <div>
+      <p>Testing </p>
+      {
+        userStorage.map((user)=>{
+          return(
+            <div>
+              <p>${user.firstname}</p>
+            </div>
+          )
+        })
+      }
+    </div>
     </div>
   )
 }

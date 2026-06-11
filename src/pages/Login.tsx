@@ -1,6 +1,6 @@
-import { useAuth } from "../hooks"
+import { useAuth } from "../hooks/hooks"
 import { useForm,type SubmitHandler } from "react-hook-form"
-import type { loginDetail } from "../types"
+import type { loginDetail } from "../types/types"
 import { Link } from "react-router-dom"
 
 

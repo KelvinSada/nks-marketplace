@@ -1,6 +1,6 @@
 import { useContext } from "react"
-import type { apiDataType } from "../types"
-import { AppContext } from "../Context"
+import type { apiDataType } from "../../types/types"
+import { AppContext } from "../../context/Context"
 
 const ComponentMenu = ({data:items}:{data:apiDataType[]}) => {
   const {SelectedCategory:{selectedCategory,setSelectedCategory}} = useContext(AppContext)

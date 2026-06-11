@@ -1,10 +1,20 @@
 import { useContext, useEffect } from 'react'
 import ComponentMenu from './ComponentMenu'
-import type { apiDataType } from '../types'
-import { AppContext } from '../Context'
+import type { apiDataType } from '../../types/types'
+import { AppContext } from '../../context/Context'
 
 const DisplaySection = () => {
-const {SavedItemsArray:{itemsArray,setItemsArray},SelectedCategory:{selectedCategory}} = useContext(AppContext)
+const {SavedItemsArray:{itemsArray,setItemsArray},
+        SelectedCategory:{selectedCategory}} = useContext(AppContext)
+
+// const mockData = {
+//   id: 1,
+//   uniqueId: "735378",
+//   firstname: "Tega",
+//   lastname: "Sada",
+//   email: "tegaSada@gmail.com",
+//   password: "11111111111111" ,
+// }
 
   useEffect(function (){
     getData()
