@@ -1,41 +1,30 @@
-import { useContext, useEffect } from 'react'
-import ComponentMenu from './ComponentMenu'
+import { useEffect } from 'react'
 import type { apiDataType } from '../../types/types'
-import { AppContext } from '../../context/Context'
+import { useItems,useSelectedItems } from '../../hooks/hooks'
+
 
 const DisplaySection = () => {
-const {SavedItemsArray:{itemsArray,setItemsArray},
-        SelectedCategory:{selectedCategory}} = useContext(AppContext)
 
-// const mockData = {
-//   id: 1,
-//   uniqueId: "735378",
-//   firstname: "Tega",
-//   lastname: "Sada",
-//   email: "tegaSada@gmail.com",
-//   password: "11111111111111" ,
-// }
+  const {itemsArray,addItems} = useItems()
+  const {selectedCategory}= useSelectedItems()
 
   useEffect(function (){
     getData()
-  },[])
+  },[itemsArray])
 
    async function getData(){
     try {
       const response = await fetch('https://fakestoreapi.com/products')
       if (!response.ok)  throw new Error(`HTTP error: ${response.status}`)          
       const info:apiDataType[] = await  response.json();
-      await setItemsArray(info)
+      addItems(info)
     } catch (error){
-      console.log( error)
     }
    }
  
 
-  
   return (
       <section>
-        <ComponentMenu data={itemsArray}/>
         <div className=' flex flex-col gap-10'>
           {
             itemsArray?itemsArray.map((item:apiDataType)=>{

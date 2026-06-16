@@ -1,9 +1,23 @@
+import type { ReactNode } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "../contexts/AuthContext.tsx";
+import GlobalStorageProvider from "./GlobalStorageProvider.tsx";
 
-const AppProviders = () => {
+
+interface AppProviderProps {
+  children:ReactNode
+}
+
+const AppProviders = ({children}:AppProviderProps) => {
+
   return (
-    <div>
-      <p>App Provider</p>
-    </div>
+    <BrowserRouter>
+      <GlobalStorageProvider>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </GlobalStorageProvider>
+    </BrowserRouter>
   )
 }
 

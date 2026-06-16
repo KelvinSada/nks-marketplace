@@ -1,13 +1,11 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { useAuth } from '../hooks/hooks'
+import { useAuth, useGlobalStorage } from '../hooks/hooks'
 import type { userDetail } from '../types/types';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { AppContext } from '../context/Context';
 
 
 const SignUp = () => {
-  const {GlobalStorage:{userStorage} } = useContext(AppContext)
+  const {userStorage} = useGlobalStorage()
   const { register,handleSubmit,formState:{errors}} = useForm<userDetail>();
   const { signup, authError } = useAuth()
   

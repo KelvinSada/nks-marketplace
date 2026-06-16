@@ -1,8 +1,7 @@
-import { createContext,useState,useEffect, type ReactNode, useContext } from "react";
-import type { AuthContextType, authErrorType, loginDetail, userDetail, userStorageDetail } from "./types/types";
-import { AppContext } from "./context/Context";
-import { uniqueString } from "./function/function";
-// import uniqueString from 'unique-string';
+import { createContext,useState,useEffect, type ReactNode } from "react";
+import type { AuthContextType, authErrorType, loginDetail, userDetail, userStorageDetail } from "../types/types";
+import { uniqueString } from "../function/function";
+import { useGlobalStorage } from "../hooks/hooks";
 
 
 export const AuthContext = createContext<AuthContextType|undefined>(undefined)
@@ -12,6 +11,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider=({children}:AuthProviderProps)=>{
+  const {userStorage,addUser} = useGlobalStorage()
   const [user,setUser] = useState<userDetail|null>(null);
   const [loading,setLoading] = useState<boolean>(true)
   const [authError,setAuthError] = useState<authErrorType>({
@@ -19,7 +19,7 @@ export const AuthProvider=({children}:AuthProviderProps)=>{
     message:""
   })
 
-  const {GlobalStorage:{userStorage,setUserStorage}} = useContext(AppContext)
+  // const {GlobalStorage:{userStorage,setUserStorage}} = useContext(AppContext)
 
   //Check if user session exists on app load
   useEffect(()=>{
@@ -66,6 +66,7 @@ export const AuthProvider=({children}:AuthProviderProps)=>{
     
     // Signup action
     const signup = async (data:userDetail) =>{
+      console.log(data)
       if (data.email === user?.email){
         setAuthError({
           error:true,
@@ -74,11 +75,7 @@ export const AuthProvider=({children}:AuthProviderProps)=>{
       } else if (data.email !== user?.email){
         try{
           const person = userDataReady(data)
-          console.log(person)
-          setUserStorage((prev)=>{
-            console.log("working")
-            return[person,...prev]
-          })
+          addUser(person)
 
           // localStorage.setItem("user",JSON.stringify(data))
           setAuthError({
