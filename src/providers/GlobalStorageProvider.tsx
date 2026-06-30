@@ -12,7 +12,7 @@ const GlobalStorageProvider = ({children}:GlobalStorageProviderType) => {
   const  [userStorage,setUserStorage] = useState<userStorageDetail[]>([])
 
   const addUser = (data:userStorageDetail)=>{
-    setUserStorage((prev)=>[data,...prev])
+    setUserStorage((prev)=>[...prev,data])
   }
   
   return (
