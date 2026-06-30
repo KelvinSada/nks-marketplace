@@ -79,7 +79,7 @@ const User = () => {
 
 <div className="m-4 p-4 border border-gray-200 rounded-lg shadow-md bg-white max-w-xs">
   <div className="flex flex-col items-center gap-3">
-    <img
+    <img 
       src={displayImage} 
       width={200} 
       alt="Product image" 
