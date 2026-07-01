@@ -2,6 +2,14 @@ import { useState, type ChangeEvent } from "react"
 
 const User = () => {
   const [displayImage,setDisplayImage] = useState<string|undefined>(undefined)
+  const [posts,setPosts] = useState({
+    postId:undefined,
+    postImageUrl:"",
+    postTitle:"",
+    description:"",
+    amount:undefined
+
+  })
 
   const alterBackground = () =>{
     console.log("clicked")
@@ -45,11 +53,28 @@ const User = () => {
     <div>
       <div>
         {/* Upload the Image */}
-        <label htmlFor="myImage">
-          {/* <img src={cloudImage} alt=""/> */}
-          <p>Drag and Drop or click to upload</p>
-          <input id="myImage" type="file" onChange={(e:ChangeEvent<HTMLInputElement>)=>handlePictureUpload(e)}/>
-        </label>
+        <form>
+          <div>
+            <label htmlFor="itemName">Name:</label>
+            <input type="text" name="itemName"/>
+          </div>
+
+          <div>
+            <label htmlFor="price">Price:</label>
+            <input type="number" name="price"/>
+          </div>
+
+          <div>
+            <label htmlFor="description">Description:</label>
+            <input type="text" name="description"/>
+          </div>
+
+          <label htmlFor="myImage">
+            {/* <img src={cloudImage} alt=""/> */}
+            <p>Drag and Drop or click to upload</p>
+            <input id="myImage" type="file" onChange={(e:ChangeEvent<HTMLInputElement>)=>handlePictureUpload(e)}/>
+          </label>
+        </form>
 
         {/* Display the uploaded Item */}
         <div className="m-4 p-4 border border-gray-200 rounded-lg shadow-md bg-white max-w-xs">
