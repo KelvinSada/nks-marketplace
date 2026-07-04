@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AuthContext } from "../contexts/AuthContext"
 import type { AuthContextType } from "../types/types"
-import { GlobalStorageContext, ItemsContext, selectedItemsContext } from "../contexts/Context"
+import { GlobalStorageContext, ItemsContext, postsContext, selectedItemsContext } from "../contexts/Context"
 
 export const useAuth = ():AuthContextType =>{ 
   const context = useContext(AuthContext)
@@ -29,6 +29,14 @@ export const useSelectedItems =()=>{
 
 export const useGlobalStorage=()=>{
   const context = useContext(GlobalStorageContext)
+  if (context === undefined){
+    throw new Error("useItems must be used within the ItemsProvider")
+  }
+  return context;
+}
+
+export const usePosts=()=>{
+  const context = useContext(postsContext)
   if (context === undefined){
     throw new Error("useItems must be used within the ItemsProvider")
   }

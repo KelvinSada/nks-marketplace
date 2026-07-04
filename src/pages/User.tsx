@@ -1,79 +1,112 @@
 import { useState, type ChangeEvent } from "react"
+import { usePosts } from "../hooks/hooks"
+import  {type SubmitHandler, useForm} from "react-hook-form"
+import type { postFormType } from "../types/types"
+
 
 const User = () => {
-  const [displayImage,setDisplayImage] = useState<string|undefined>(undefined)
-  const [posts,setPosts] = useState({
-    postId:undefined,
-    postImageUrl:"",
-    postTitle:"",
-    description:"",
-    amount:undefined
+  const [displayImage, setDisplayImage ] = useState<string|undefined>(undefined)
+  // const { posts,uploadPosts } = usePosts()
 
-  })
+  // cloudinary Name
+  // const cloudinaryName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
 
-  const alterBackground = () =>{
-    console.log("clicked")
-    setDisplayImage(prev=>{
-      if (prev !== undefined){
-        const newString = prev.replace("/upload/","/upload/e_background_removal/")
-        return newString
-      }
-    })
+  // const alterBackground = () =>{
+  //   console.log("clicked")
+  //   setDisplayImage(prev=>{
+  //     if (prev !== undefined){
+  //       const newString = prev.replace("/upload/","/upload/e_background_removal/")
+  //       return newString
+  //     }
+  //   })
+  // }
+  
+  // Adding the react-hook-form functionality
+  const { register, handleSubmit, setError} = useForm<postFormType>()
+
+  // const handlePictureUpload= async (event:ChangeEvent<HTMLInputElement>)=>{
+  //   const imageDetail = event.target.files
+
+  //   if (imageDetail){
+  //     const imageName = imageDetail[0]
+  //     const data = new FormData()
+  //     data.append("file",imageName)
+  //     data.append("upload_preset","nksMarketplace")
+  //     data.append("cloud_name",cloudinaryName)
+
+  //     try{
+  //       const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload`,{
+  //         method:"POST",
+  //         body:data,
+  //       })
+
+  //       const cloudinayResponse = await response.json();
+  //       console.log(cloudinayResponse.url)
+  //       setDisplayImage(cloudinayResponse.url)
+
+  //     } catch(err){
+  //       console.log("Error:",err)
+  //     }
+  //   }
+  // }
+
+
+  const onSubmit:SubmitHandler<postFormType>=(data)=>{
+    console.log(data)
   }
-  const cloudinaryName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
 
-
-
-  const handlePictureUpload= async (event:ChangeEvent<HTMLInputElement>)=>{
-    const imageDetail = event.target.files
-
-    if (imageDetail){
-      const imageName = imageDetail[0]
-      const data = new FormData()
-      data.append("file",imageName)
-      data.append("upload_preset","nksMarketplace")
-      data.append("cloud_name",cloudinaryName)
-
-      try{
-        const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload`,{
-          method:"POST",
-          body:data,
-        })
-
-        const cloudinayResponse = await response.json();
-        console.log(cloudinayResponse.url)
-        setDisplayImage(cloudinayResponse.url)
-
-      } catch(err){
-        console.log("Error:",err)
-      }
-    }
-  }
   return (
     <div>
       <div>
         {/* Upload the Image */}
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)} className="border-2 w-fit m-4 p-2">
+
           <div>
-            <label htmlFor="itemName">Name:</label>
-            <input type="text" name="itemName"/>
+            {/* <label htmlFor="itemName">Name:</label>
+            <input type="text" name="itemName"/> */}
+
+            <input {...register("itemName",{
+              required:"Please enter your item name"
+            })}
+            placeholder="Name of Item"
+            type="text"/>
           </div>
 
           <div>
-            <label htmlFor="price">Price:</label>
-            <input type="number" name="price"/>
+            {/* <label htmlFor="price">Price:</label>
+            <input type="number" name="price"/> */}
+
+            <input {...register("itemPrice",{
+              required:"List the price of the item"
+            })}
+            placeholder="Price of Item"
+            type="number"/>
           </div>
 
           <div>
-            <label htmlFor="description">Description:</label>
-            <input type="text" name="description"/>
+            {/* <label htmlFor="description">Description:</label>
+            <input type="text" name="description"/> */}
+
+            <input {...register("itemDescription",{
+              required:"Let the user know more about the item"
+            })}
+            placeholder="About the Item"
+            type="text"/>
           </div>
 
-          <label htmlFor="myImage">
-            {/* <img src={cloudImage} alt=""/> */}
-            <p>Drag and Drop or click to upload</p>
-            <input id="myImage" type="file" onChange={(e:ChangeEvent<HTMLInputElement>)=>handlePictureUpload(e)}/>
-          </label>
+          <div>
+            {/* <label htmlFor="myImage">
+              <p>Drag and Drop or click to upload</p>
+              <input id="myImage" type="file" onChange={(e:ChangeEvent<HTMLInputElement>)=>handlePictureUpload(e)}/>
+            </label> */}
+            <input {...register("itemUrl",{
+              required:"Let the user know more about the item"
+            })}
+            placeholder="Drag and Drop or click to upload"
+            type="file"/>
+          </div>
+
+          <button>Post my Item to my Page</button>
         </form>
 
         {/* Display the uploaded Item */}
@@ -93,7 +126,7 @@ const User = () => {
         </div>
 
         {/* Remove background settings */}
-        <button onClick={alterBackground} className="bg-amber-600 m-4"> Take off background</button>
+        {/* <button onClick={alterBackground} className="bg-amber-600 m-4"> Take off background</button> */}
       </div>
     </div>
   )

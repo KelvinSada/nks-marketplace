@@ -35,21 +35,6 @@ export type apiDataType = {
   }
 }
 
-export type AppContextType={
-  SavedItemsArray:{
-    itemsArray:apiDataType[],
-    setItemsArray:React.Dispatch<React.SetStateAction<apiDataType[]>>
-},
-  SelectedCategory:{
-     selectedCategory:string,
-     setSelectedCategory:React.Dispatch<React.SetStateAction<string>>
-  },
-  GlobalStorage:{
-    userStorage:userStorageDetail[],
-    setUserStorage:React.Dispatch<React.SetStateAction<userStorageDetail[]>>,
-  }
-}
-
 export type GlobalStorageContextType = {
     userStorage:userStorageDetail[],
     addUser: (data: userStorageDetail) => void;
@@ -78,3 +63,22 @@ export type authErrorType = {
     error:boolean,
     message:string
   }
+
+export type postsType = {
+    postId: undefined | number;
+    postImageUrl: string;
+    postTitle: string;
+    description: string;
+    amount: undefined | number;
+}
+export  type postFormType = {
+  itemName:string,
+  itemPrice:number,
+  itemDescription:string,
+  itemUrl:string,
+}
+
+export type PostsContextType = {
+  posts:postsType,
+  uploadPosts:(name: string, price: number, description: string, imgUrl: string) => void,
+}

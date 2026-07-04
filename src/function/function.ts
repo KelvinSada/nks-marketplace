@@ -1,7 +1,7 @@
 import type { apiDataType } from "../types/types"
 
 // Creating a unique random string
-export const uniqueString = () =>{
+export const uniqueString = ():string =>{
   const uniqueCode = Math.floor(Math.random() * 10000000)
   const uniqueString = JSON.stringify(uniqueCode)
   return uniqueString
