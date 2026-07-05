@@ -1,30 +1,42 @@
-import { useState, type ChangeEvent } from "react"
+import { useState } from "react"
 import { usePosts } from "../hooks/hooks"
 import  {type SubmitHandler, useForm} from "react-hook-form"
 import type { postFormType } from "../types/types"
+import { imageUpload } from "../function/function"
 
 
 const User = () => {
   const [displayImage, setDisplayImage ] = useState<string|undefined>(undefined)
   // const { posts,uploadPosts } = usePosts()
 
-  // cloudinary Name
-  // const cloudinaryName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
+  const { register, handleSubmit, setError} = useForm<postFormType>()
+
+  const onSubmit:SubmitHandler<postFormType>= async (data)=>{
+  // console.log(data)
+
+  //  Handling image upload to cloudinary
+  const imgUrl = data.itemUrl[0];
+  console.log(imgUrl)
+  const response = await imageUpload(imgUrl)
+  console.log(response)
+
+  // Continue: create an obj that fits the postItem type, 
+  // use the upload hook to post 
+  }
 
   // const alterBackground = () =>{
   //   console.log("clicked")
   //   setDisplayImage(prev=>{
-  //     if (prev !== undefined){
-  //       const newString = prev.replace("/upload/","/upload/e_background_removal/")
-  //       return newString
-  //     }
-  //   })
-  // }
+    //     if (prev !== undefined){
+      //       const newString = prev.replace("/upload/","/upload/e_background_removal/")
+      //       return newString
+      //     }
+      //   })
+      // }
   
   // Adding the react-hook-form functionality
-  const { register, handleSubmit, setError} = useForm<postFormType>()
 
-  // const handlePictureUpload= async (event:ChangeEvent<HTMLInputElement>)=>{
+  // const imageUpload = async (event:ChangeEvent<HTMLInputElement>)=>{
   //   const imageDetail = event.target.files
 
   //   if (imageDetail){
@@ -51,9 +63,7 @@ const User = () => {
   // }
 
 
-  const onSubmit:SubmitHandler<postFormType>=(data)=>{
-    console.log(data)
-  }
+
 
   return (
     <div>
@@ -76,22 +86,22 @@ const User = () => {
             {/* <label htmlFor="price">Price:</label>
             <input type="number" name="price"/> */}
 
-            <input {...register("itemPrice",{
+            {/* <input {...register("itemPrice",{
               required:"List the price of the item"
             })}
             placeholder="Price of Item"
-            type="number"/>
+            type="number"/> */}
           </div>
 
           <div>
             {/* <label htmlFor="description">Description:</label>
             <input type="text" name="description"/> */}
 
-            <input {...register("itemDescription",{
+            {/* <input {...register("itemDescription",{
               required:"Let the user know more about the item"
             })}
             placeholder="About the Item"
-            type="text"/>
+            type="text"/> */}
           </div>
 
           <div>
@@ -106,7 +116,7 @@ const User = () => {
             type="file"/>
           </div>
 
-          <button>Post my Item to my Page</button>
+          <button className="bg-red-300 p-2">Post my Item to my Page</button>
         </form>
 
         {/* Display the uploaded Item */}

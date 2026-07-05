@@ -80,5 +80,12 @@ export  type postFormType = {
 
 export type PostsContextType = {
   posts:postsType,
-  uploadPosts:(name: string, price: number, description: string, imgUrl: string) => void,
+  uploadPosts: (item: postItem) => void,
+}
+
+export type postItem = {
+  name:string,
+  price:number,
+  description:string, 
+  imgUrl:string
 }

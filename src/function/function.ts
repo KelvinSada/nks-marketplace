@@ -7,6 +7,7 @@ export const uniqueString = ():string =>{
   return uniqueString
 }
 
+// Fetching Items from the fake store API
 export async function getData(){
   try {
     const response = await fetch('https://fakestoreapi.com/products')
@@ -17,3 +18,25 @@ export async function getData(){
     console.log( error)
   }
  }
+
+//  Exporting pictures to Cloudinary
+ export const imageUpload = async (imageUrl:string)=>{
+  
+  // cloudinary Name
+  const cloudinaryName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
+
+    const data = new FormData()
+    data.append("file",imageUrl)
+    data.append("upload_preset","nksMarketplace")
+    data.append("cloud_name",cloudinaryName)
+    try{
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload`,{
+        method:"POST",
+        body:data,
+      })
+      const cloudinayResponse = await response.json();
+      return cloudinayResponse
+    } catch(err){
+      return (`Error: ${err}`)
+    }
+}

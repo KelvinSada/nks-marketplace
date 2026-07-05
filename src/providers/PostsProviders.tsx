@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import type { postsType } from '../types/types';
+import type { postItem, postsType } from '../types/types';
 import { postsContext } from '../contexts/Context';
 import { uniqueString } from '../function/function';
 
@@ -16,15 +16,15 @@ const PostsProviders = ({children}:PostsProviderProps) => {
     amount:undefined,
   })  
 
-  const uploadPosts = (name:string,price:number,description:string, imgUrl:string)=>{
+  const uploadPosts = (item:postItem)=>{
     const id = JSON.parse(uniqueString());
 
     setPosts({
       postId:id,
-      postImageUrl:imgUrl,
-      postTitle:name,
-      description:description,
-      amount:price
+      postImageUrl:item.imgUrl,
+      postTitle: item.name,
+      description:item.description,
+      amount:item.price,
     })
   }
 
