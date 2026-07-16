@@ -65,27 +65,24 @@ export type authErrorType = {
   }
 
 export type postsType = {
-    postId: undefined | number;
-    postImageUrl: string;
-    postTitle: string;
-    description: string;
-    amount: undefined | number;
-}
-export  type postFormType = {
-  itemName:string,
-  itemPrice:number,
-  itemDescription:string,
-  itemUrl:string,
-}
+    id: undefined | number;
+} & postItem
 
 export type PostsContextType = {
-  posts:postsType,
-  uploadPosts: (item: postItem) => void,
+  posts:postItem,
+  setPosts: React.Dispatch<React.SetStateAction<postItem>>,
+  itemsArray: [] | savedPosts[],
+  savePost: (userPost: postItem) => void
 }
 
 export type postItem = {
   name:string,
-  price:number,
+  price:number | undefined,
   description:string, 
   imgUrl:string
 }
+
+export type savedPosts = {
+  id: number,
+  uniqueKey : string
+} & postItem

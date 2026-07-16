@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../contexts/AuthContext.tsx";
 import GlobalStorageProvider from "./GlobalStorageProvider.tsx";
+import PostsProviders from "./PostsProviders.tsx";
 
 
 interface AppProviderProps {
@@ -12,11 +13,13 @@ const AppProviders = ({children}:AppProviderProps) => {
 
   return (
     <BrowserRouter>
-      <GlobalStorageProvider>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
-      </GlobalStorageProvider>
+      <PostsProviders>
+        <GlobalStorageProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </GlobalStorageProvider>
+      </PostsProviders>
     </BrowserRouter>
   )
 }

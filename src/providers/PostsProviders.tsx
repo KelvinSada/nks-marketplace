@@ -1,35 +1,39 @@
 import { useState, type ReactNode } from 'react';
-import type { postItem, postsType } from '../types/types';
+import type { postItem, postsType, savedPosts } from '../types/types';
 import { postsContext } from '../contexts/Context';
-import { uniqueString } from '../function/function';
+import { imageUpload, uniqueString } from '../function/function';
 
 
 interface PostsProviderProps {
   children:ReactNode;
 }
 const PostsProviders = ({children}:PostsProviderProps) => {
-  const [ posts,setPosts ] = useState<postsType>({
-    postId:undefined,
-    postImageUrl:"",
-    postTitle:"",
-    description:"",
-    amount:undefined,
+  const [ posts,setPosts ] = useState<postItem>({
+    name:"",
+    price:undefined,
+    description:"", 
+    imgUrl:""
   })  
+  const [ itemsArray, setItemsArray ] = useState< savedPosts[] | []>([])
 
-  const uploadPosts = (item:postItem)=>{
-    const id = JSON.parse(uniqueString());
+  
+  const savePost = (userPost:postItem) =>{
 
-    setPosts({
-      postId:id,
-      postImageUrl:item.imgUrl,
-      postTitle: item.name,
-      description:item.description,
-      amount:item.price,
-    })
+    const uniqueNum = uniqueString()
+    const postArrayNumber = itemsArray.length + 1
+
+
+    const uploadObject:savedPosts = {
+      ...userPost,
+      id: postArrayNumber,
+      uniqueKey: uniqueNum
+    }
+
+    setItemsArray((prev)=>[...prev,uploadObject])
   }
 
   return (
-    <postsContext.Provider value={{posts,uploadPosts}}>
+    <postsContext.Provider value={{posts,setPosts, itemsArray, savePost}}>
       {children}
     </postsContext.Provider>
   )

@@ -1,68 +1,47 @@
-import { useState } from "react"
 import { usePosts } from "../hooks/hooks"
 import  {type SubmitHandler, useForm} from "react-hook-form"
-import type { postFormType } from "../types/types"
-import { imageUpload } from "../function/function"
+import type { postItem } from "../types/types"
+import { imageUpload, uniqueString } from "../function/function"
 
 
 const User = () => {
-  const [displayImage, setDisplayImage ] = useState<string|undefined>(undefined)
-  // const { posts,uploadPosts } = usePosts()
+  const { posts, setPosts, savePost } = usePosts()
 
-  const { register, handleSubmit, setError} = useForm<postFormType>()
+  const { register, handleSubmit } = useForm<postItem>()
 
-  const onSubmit:SubmitHandler<postFormType>= async (data)=>{
-  // console.log(data)
+
+  //Saving the form info and sendin the image to cloudinary
+  const onSubmit:SubmitHandler<postItem>= async (data)=>{
 
   //  Handling image upload to cloudinary
-  const imgUrl = data.itemUrl[0];
+  const imgUrl = data.imgUrl[0];
   console.log(imgUrl)
   const response = await imageUpload(imgUrl)
-  console.log(response)
 
-  // Continue: create an obj that fits the postItem type, 
-  // use the upload hook to post 
+  // Configurating the Posts
+  data.imgUrl = response.url
+
+  setPosts(data)
   }
 
-  // const alterBackground = () =>{
-  //   console.log("clicked")
-  //   setDisplayImage(prev=>{
-    //     if (prev !== undefined){
-      //       const newString = prev.replace("/upload/","/upload/e_background_removal/")
-      //       return newString
-      //     }
-      //   })
-      // }
-  
-  // Adding the react-hook-form functionality
+  const alterBackground = () =>{
+    const updatedPosts = {
+      ...posts,
+      name: "Kome sada",
+      imgUrl:posts.imgUrl.replace("/upload/", "/upload/e_background_removal/")
+    }
+    setPosts(updatedPosts)
+  }
 
-  // const imageUpload = async (event:ChangeEvent<HTMLInputElement>)=>{
-  //   const imageDetail = event.target.files
-
-  //   if (imageDetail){
-  //     const imageName = imageDetail[0]
-  //     const data = new FormData()
-  //     data.append("file",imageName)
-  //     data.append("upload_preset","nksMarketplace")
-  //     data.append("cloud_name",cloudinaryName)
-
-  //     try{
-  //       const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudinaryName}/image/upload`,{
-  //         method:"POST",
-  //         body:data,
-  //       })
-
-  //       const cloudinayResponse = await response.json();
-  //       console.log(cloudinayResponse.url)
-  //       setDisplayImage(cloudinayResponse.url)
-
-  //     } catch(err){
-  //       console.log("Error:",err)
-  //     }
-  //   }
-  // }
-
-
+  const handleSubmitItem =()=>{
+    savePost(posts)
+    setPosts({
+      name: "",
+      price: undefined,
+      description: "",
+      imgUrl: "",
+    })
+  }
 
 
   return (
@@ -72,10 +51,7 @@ const User = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="border-2 w-fit m-4 p-2">
 
           <div>
-            {/* <label htmlFor="itemName">Name:</label>
-            <input type="text" name="itemName"/> */}
-
-            <input {...register("itemName",{
+            <input {...register("name",{
               required:"Please enter your item name"
             })}
             placeholder="Name of Item"
@@ -83,60 +59,58 @@ const User = () => {
           </div>
 
           <div>
-            {/* <label htmlFor="price">Price:</label>
-            <input type="number" name="price"/> */}
-
-            {/* <input {...register("itemPrice",{
+            <input {...register("price",{
               required:"List the price of the item"
             })}
             placeholder="Price of Item"
-            type="number"/> */}
+            type="number"/>
           </div>
 
           <div>
-            {/* <label htmlFor="description">Description:</label>
-            <input type="text" name="description"/> */}
-
-            {/* <input {...register("itemDescription",{
+            <input {...register("description",{
               required:"Let the user know more about the item"
             })}
             placeholder="About the Item"
-            type="text"/> */}
+            type="text"/>
           </div>
 
           <div>
-            {/* <label htmlFor="myImage">
-              <p>Drag and Drop or click to upload</p>
-              <input id="myImage" type="file" onChange={(e:ChangeEvent<HTMLInputElement>)=>handlePictureUpload(e)}/>
-            </label> */}
-            <input {...register("itemUrl",{
+            <input {...register("imgUrl",{
               required:"Let the user know more about the item"
             })}
             placeholder="Drag and Drop or click to upload"
             type="file"/>
           </div>
 
-          <button className="bg-red-300 p-2">Post my Item to my Page</button>
+          <button className="bg-red-300 p-2">Submit</button>
         </form>
 
         {/* Display the uploaded Item */}
-        <div className="m-4 p-4 border border-gray-200 rounded-lg shadow-md bg-white max-w-xs">
-          <div className="flex flex-col items-center gap-3">
-            <img 
-              src={displayImage} 
-              width={200} 
-              alt="Product image" 
-              className="rounded-lg object-cover w-full h-auto"
-            />
-            <p className="text-xl font-semibold text-gray-800">Price $300</p>
-            <button className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-sm">
-              Buy
-            </button>
-          </div>
-        </div>
+        {
+          posts.name.length >0?
+          <section>
+            <div className="m-4 p-4 border border-gray-200 rounded-lg shadow-md bg-white max-w-xs">
+            <div className="flex flex-col items-center gap-3">
+              <div>
+                <img 
+                  src={posts.imgUrl} 
+                  width={200} 
+                  alt={posts.name} 
+                  className="rounded-lg object-cover w-full h-auto"
+                  />
+                  <button onClick={alterBackground}>Remove background</button>
+              </div>
+              <p>{posts.name}</p>
+              <p>{posts.description}</p>
+              <p className="text-xl font-semibold text-gray-800">Price ${posts.price}</p>
+            </div>
 
-        {/* Remove background settings */}
-        {/* <button onClick={alterBackground} className="bg-amber-600 m-4"> Take off background</button> */}
+              <button onClick={handleSubmitItem} className="flex w-full justify-around mt-5 border-2 border-amber-400" >Submit</button>
+            </div>
+          </section>
+        :null
+        }
+
       </div>
     </div>
   )
