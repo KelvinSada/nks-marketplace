@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react';
-import type { postItem, postsType, savedPosts } from '../types/types';
+import type { postItem, savedPosts } from '../types/types';
 import { postsContext } from '../contexts/Context';
-import { imageUpload, uniqueString } from '../function/function';
+import { uniqueString } from '../function/function';
 
 
 interface PostsProviderProps {
@@ -16,7 +16,7 @@ const PostsProviders = ({children}:PostsProviderProps) => {
   })  
   const [ itemsArray, setItemsArray ] = useState< savedPosts[] | []>([])
 
-  
+
   const savePost = (userPost:postItem) =>{
 
     const uniqueNum = uniqueString()

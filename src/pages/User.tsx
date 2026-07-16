@@ -1,7 +1,7 @@
 import { usePosts } from "../hooks/hooks"
 import  {type SubmitHandler, useForm} from "react-hook-form"
 import type { postItem } from "../types/types"
-import { imageUpload, uniqueString } from "../function/function"
+import { imageUpload } from "../function/function"
 
 
 const User = () => {
