@@ -18,6 +18,10 @@ const User = () => {
   console.log(imgUrl)
   const response = await imageUpload(imgUrl)
 
+  if (!response.ok){
+    console.error("An error occured while uploading fils to cloudinary ")
+  }
+
   // Configurating the Posts
   data.imgUrl = response.url
 

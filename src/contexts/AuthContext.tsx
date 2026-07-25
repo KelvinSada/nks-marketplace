@@ -110,24 +110,6 @@ const userDataReady = (data:userDetail) => {
   return userStorageItem
 }
 
-// Saving User Storage to Local Storage
-// useEffect(()=>{
-//   const data = localStorage.getItem("UsersList")
-//   if (data){
-//     const info = JSON.parse(data)
-//     console.log(info)
-//     // setUserStorage(info)
-//   } else {
-//     throw new Error
-//   }
-// },[])
-
-
-// useEffect(()=>{
-//   console.log("rendered")
-//   localStorage.setItem("UsersList",JSON.stringify(userStorage))
-// },[userStorage])
-
 
 
   const value = {

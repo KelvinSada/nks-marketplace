@@ -1,9 +1,5 @@
 import { createContext } from "react";
-import { type ItemsContextType, type SelectedItemsContextType, type GlobalStorageContextType, type PostsContextType} from "../types/types";
-
-export const ItemsContext = createContext<ItemsContextType | undefined>(undefined);
-
-export const selectedItemsContext = createContext<SelectedItemsContextType | undefined>(undefined)
+import { type GlobalStorageContextType, type PostsContextType} from "../types/types";
 
 export const GlobalStorageContext = createContext<GlobalStorageContextType | undefined > (undefined)
 

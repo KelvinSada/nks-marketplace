@@ -1,4 +1,3 @@
-import type { apiDataType } from "../types/types"
 
 // Creating a unique random string
 export const uniqueString = ():string =>{
@@ -6,18 +5,6 @@ export const uniqueString = ():string =>{
   const uniqueString = JSON.stringify(uniqueCode)
   return uniqueString
 }
-
-// Fetching Items from the fake store API
-export async function getData(){
-  try {
-    const response = await fetch('https://fakestoreapi.com/products')
-    if (!response.ok)  throw new Error(`HTTP error: ${response.status}`)          
-    const info:apiDataType[] = await  response.json();
-    return info
-  } catch (error){
-    console.log( error)
-  }
- }
 
 //  Exporting pictures to Cloudinary
  export const imageUpload = async (imageUrl:string)=>{

@@ -1,11 +1,11 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { useAuth, useGlobalStorage } from '../hooks/hooks'
+import { useAuth } from '../hooks/hooks'
 import type { userDetail } from '../types/types';
 import { Link } from 'react-router-dom';
 
 
 const SignUp = () => {
-  const {userStorage} = useGlobalStorage()
+  // const {userStorage} = useGlobalStorage()
   const { register,handleSubmit,formState:{errors}} = useForm<userDetail>();
   const { signup, authError } = useAuth()
   
@@ -130,18 +130,6 @@ const SignUp = () => {
           </form>
         </div>
       </div>
-          <div>
-      <p>Testing </p>
-      {
-        userStorage.map((user)=>{
-          return(
-            <div>
-              <p>${user.firstname}</p>
-            </div>
-          )
-        })
-      }
-    </div>
     </div>
   )
 }

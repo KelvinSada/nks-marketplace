@@ -22,33 +22,11 @@ export type userStorageDetail = {
 }
 
 
-export type apiDataType = {
-  "id": number,
-  "title": string,
-  "price": number,
-  "description": string,
-  "category": string,
-  "image":string,
-  "rating": {
-    "rate": number,
-    "count": number
-  }
-}
-
 export type GlobalStorageContextType = {
     userStorage:userStorageDetail[],
     addUser: (data: userStorageDetail) => void;
   }
 
-export type ItemsContextType = {
-  itemsArray:apiDataType[],
-  addItems:(data: apiDataType[]) => void;
-}
-
-export type  SelectedItemsContextType ={
-  selectedCategory:string,
-  selectItems: (data: string) => void
-}
 
 export type AuthContextType = {
   user: userDetail | null,
