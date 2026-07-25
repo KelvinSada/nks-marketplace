@@ -12,7 +12,7 @@ export type loginDetail = {
 }
 
 // Storing User Data into a main global array
-export type userStorageDetail = {
+export type globalStorageDetail = {
   id:number | undefined,
   uniqueId:string | undefined,
   firstname:string,
@@ -21,10 +21,11 @@ export type userStorageDetail = {
   password:string
 }
 
-
 export type GlobalStorageContextType = {
-    userStorage:userStorageDetail[],
-    addUser: (data: userStorageDetail) => void;
+    globalStorage:globalStorageDetail[],
+    addUser: (data: globalStorageDetail) => void,
+    authMessage:authMessageType,
+    setAuthMessage:React.Dispatch<React.SetStateAction<authMessageType>>
   }
 
 
@@ -34,10 +35,9 @@ export type AuthContextType = {
   logout:() => void,
   loading:boolean,
   signup: (data: userDetail) => Promise<void>,
-  authError: authErrorType
 }
 
-export type authErrorType = {
+export type authMessageType = {
     error:boolean,
     message:string
   }

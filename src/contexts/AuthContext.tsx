@@ -1,5 +1,5 @@
 import { createContext,useState,useEffect, type ReactNode } from "react";
-import type { AuthContextType, authErrorType, loginDetail, userDetail, userStorageDetail } from "../types/types";
+import type { AuthContextType, loginDetail, userDetail, globalStorageDetail } from "../types/types";
 import { uniqueString } from "../function/function";
 import { useGlobalStorage } from "../hooks/hooks";
 
@@ -11,15 +11,10 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider=({children}:AuthProviderProps)=>{
-  const {userStorage,addUser} = useGlobalStorage()
   const [user,setUser] = useState<userDetail|null>(null);
   const [loading,setLoading] = useState<boolean>(true)
-  const [authError,setAuthError] = useState<authErrorType>({
-    error:false,
-    message:""
-  })
-
-  // const {GlobalStorage:{userStorage,setUserStorage}} = useContext(AppContext)
+  
+  const {globalStorage,addUser,setAuthMessage} = useGlobalStorage()
 
   //Check if user session exists on app load
   useEffect(()=>{
@@ -33,25 +28,25 @@ export const AuthProvider=({children}:AuthProviderProps)=>{
   //Login action
   const login = async  (data:loginDetail)=>{
     if (data.email !== user?.email){
-      setAuthError({
+      setAuthMessage({
         error:true,
         message:"This user does not exist, sign up"
       })
     } else if (data.email === user?.email && data.password === user.password){
       try{
         await localStorage.setItem("user",JSON.stringify(data))
-        setAuthError({
+        setAuthMessage({
           error:false,
           message:"Login Successful"
         })
       } catch(error){
-        setAuthError({
+        setAuthMessage({
           error:true,
           message:"An error occured, try again later"
         })
       }
     } else if (data.email === user?.email && data.password !== user.password){
-      setAuthError({
+      setAuthMessage({
         error:true,
           message:"Email and password does not match"
         })
@@ -67,23 +62,27 @@ export const AuthProvider=({children}:AuthProviderProps)=>{
     // Signup action
     const signup = async (data:userDetail) =>{
       console.log(data)
-      if (data.email === user?.email){
-        setAuthError({
-          error:true,
+      console.log(globalStorage)
+
+      const checkEmail = globalStorage.some(user => user.email === data.email)
+      console.log(checkEmail)
+
+      if (checkEmail){
+        setAuthMessage({
+          error:checkEmail,
           message:"This email already exists"
         })
-      } else if (data.email !== user?.email){
+      } else {
         try{
           const person = userDataReady(data)
           addUser(person)
 
-          // localStorage.setItem("user",JSON.stringify(data))
-          setAuthError({
-            error:false,
+          setAuthMessage({
+            error:checkEmail,
             message:"Signup successful"
           })
         } catch(err){
-          setAuthError({
+          setAuthMessage({
             error:true,
             message:`Error occured, try again later`
           })
@@ -95,11 +94,11 @@ const userDataReady = (data:userDetail) => {
 
   let arrayId:number;
   
-  arrayId = userStorage.length + 1 
+  arrayId = globalStorage.length + 1 
   
   const specialId:string = uniqueString()
   
-  const userStorageItem:userStorageDetail={
+  const globalStorageItem:globalStorageDetail={
   id:arrayId,
   uniqueId:specialId,
   firstname:data.firstname,
@@ -107,7 +106,7 @@ const userDataReady = (data:userDetail) => {
   email:data.email,
   password:data.password
 }
-  return userStorageItem
+  return globalStorageItem
 }
 
 
@@ -118,7 +117,6 @@ const userDataReady = (data:userDetail) => {
     login,
     logout,
     signup,
-    authError,
     // isAuthenticated: !!user
   }
 

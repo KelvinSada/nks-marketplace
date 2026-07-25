@@ -27,7 +27,7 @@ export default App
 
 // import './App.css'
 // import { useState } from 'react'
-// import type { apiDataType,userStorageDetail } from './types/types'
+// import type { apiDataType,globalStorageDetail } from './types/types'
 // import { AppContext } from './context/Context'
 // import DisplaySection from './components/common/DisplaySection'
 // import TopMenu from './components/common/TopMenu'
@@ -35,7 +35,7 @@ export default App
 // function  App () {
 //   const [itemsArray,setItemsArray] = useState<apiDataType[]>([])  // An array full of shopping items to be displayed
 //   const [selectedCategory,setSelectedCategory] = useState<string>("men's clothing") //store the categorySelected from the menu
-//   const [userStorage,setUserStorage] = useState<userStorageDetail[]>([]) // Global user storage
+//   const [globalStorage,setglobalStorage] = useState<globalStorageDetail[]>([]) // Global user storage
 
 
   
@@ -43,7 +43,7 @@ export default App
 //      <AppContext.Provider value={{
 //       SavedItemsArray:{itemsArray,setItemsArray},
 //       SelectedCategory:{selectedCategory,setSelectedCategory},
-//       GlobalStorage:{userStorage,setUserStorage},
+//       GlobalStorage:{globalStorage,setglobalStorage},
 //      }}>
 //       <TopMenu/>
 //       <DisplaySection/>

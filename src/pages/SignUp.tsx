@@ -1,28 +1,31 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { useAuth } from '../hooks/hooks'
+import { useAuth, useGlobalStorage } from '../hooks/hooks'
 import type { userDetail } from '../types/types';
 import { Link } from 'react-router-dom';
 
 
 const SignUp = () => {
-  // const {userStorage} = useGlobalStorage()
+  // const {globalStorage} = useGlobalStorage()
   const { register,handleSubmit,formState:{errors}} = useForm<userDetail>();
-  const { signup, authError } = useAuth()
+  const { signup } = useAuth()
+  const { authMessage,setAuthMessage } = useGlobalStorage()
   
 
   const  onSubmit:SubmitHandler<userDetail> = async (data:userDetail)=>{
     try{
       await signup(data)
     }catch(err){
-      throw new Error("An error occured")  
+      setAuthMessage({
+        error:true,
+        message:"Network problem, try again later"
+      })
     }
-    
   }
 
 
   return (
     <div className="min-h-screen bg-linear-to-br from-emerald-50 via-teal-50 to-cyan-50 flex tra items-center justify-center p-6">
-      {authError.error == true?<div className="text-red-500 absolute top-10 right-10">${authError.message}</div>:null}
+      {authMessage.error == true?<div className="text-red-500 absolute top-10 right-10">${authMessage.message}</div>:null}
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden">
         {/* Decorative top bar */}
         <div className="h-2 bg-linear-to-r from-emerald-400 to-teal-500"></div>
